@@ -21,7 +21,7 @@ public class IrrigationSensorAlertImpl implements IrrigationSensorAlertService {
 
     @Override
     public GenericResponse<List<IrrigationSensorAlert>> fetchAllSensorAlerts(QueryRequestDTO request) {
-        List<IrrigationSensorAlert> results = irrigationSensorAlertRepository.findAllAlerts(request.getLimit(), request.getIndex(), request.getOrder().name());
+        List<IrrigationSensorAlert> results = irrigationSensorAlertRepository.findAllAlerts(request.getLimit(), request.getIndex());
         return ResponseUtil.generateResponse(results, "Request Successful", HttpStatus.OK);
     }
 }

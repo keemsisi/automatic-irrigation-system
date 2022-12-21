@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Irrigation_sensor_alert")
+@Table(name = "irrigation_sensor_alert")
 public class IrrigationSensorAlert {
     @GeneratedValue
     @Id

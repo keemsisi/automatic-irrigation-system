@@ -19,7 +19,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/v1/plot/irrigation/sensor/slot")
-@Api(tags = "PLOT-IRRIGATION-CONFIG-CONTROLLER")
+@Api(tags = "PLOT-IRRIGATION-SENSOR-SLOT-CONTROLLER")
 @AllArgsConstructor
 @Validated
 public class PlotIrrigationSensorSlotController {

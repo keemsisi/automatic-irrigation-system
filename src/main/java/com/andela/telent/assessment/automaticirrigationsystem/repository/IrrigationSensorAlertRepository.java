@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface IrrigationSensorAlertRepository extends CrudRepository<IrrigationSensorAlert, Long> {
-    @Query(value = "SELECT p FROM IrrigationSensorAlert ira WHERE ira.index < :index ORDER BY index :order LIMIT :limit",nativeQuery = true)
-    List<IrrigationSensorAlert> findAllAlerts(long limit, long index, String order);
+    @Query(value = "SELECT ira.* FROM irrigation_sensor_alert ira WHERE ira.index < :index ORDER BY index DESC LIMIT :limit",nativeQuery = true)
+    List<IrrigationSensorAlert> findAllAlerts(long limit, long index);
 }
