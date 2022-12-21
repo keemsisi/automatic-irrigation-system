@@ -30,13 +30,14 @@ public class IrrigationSensorImpl implements IrrigationSensorService {
         Optional<Plot> optionalPlot = plotRepository.findById(request.getPlotId());
         if (optionalPlot.isPresent()) {
             Plot plot = optionalPlot.get();
-            if (optionalPlot.get().getIrrigationSensor() != null) {
+            if (optionalPlot.get().getIrrigationSensorId() != null) {
                 return ResponseUtil.generateResponse(null, "Sensor already configured", HttpStatus.BAD_REQUEST);
             } else {
-                IrrigationSensor irrigationSensor = modelMapper.map(request, IrrigationSensor.class);
-                irrigationSensor.setPlot(plot);
+                IrrigationSensor irrigationSensor = IrrigationSensor.builder().build();
+                irrigationSensor.setSensorApiUrl(request.getSensorBaseApi());
+                irrigationSensor.setPlotId(plot.getId());
                 irrigationSensorRepository.save(irrigationSensor);
-                return ResponseUtil.generateResponse(null, "Sensor already configured successfully", HttpStatus.CREATED);
+                return ResponseUtil.generateResponse(irrigationSensor, "Sensor configured successfully", HttpStatus.CREATED);
             }
         }
         return ResponseUtil.generateResponse(null, "Failed to configure sensor", HttpStatus.BAD_REQUEST);

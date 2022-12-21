@@ -26,10 +26,10 @@ CREATE TABLE IF NOT EXISTS  public.plot (
 	date_created timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	date_modified timestamp NULL,
 	name varchar(255) NOT NULL,
-	plot int8 NULL,
+	irrigation_sensor_id int8 NULL,
 	index serial NOT NULL UNIQUE,
 	CONSTRAINT plot_pkey PRIMARY KEY (id),
-	CONSTRAINT fk407r7hhgmwxk1ydglrlgkt8kx FOREIGN KEY (plot) REFERENCES public.irrigation_sensor(id)
+	CONSTRAINT fk407r7hhgmwxk1ydglrlgkt8kx FOREIGN KEY (irrigation_sensor_id) REFERENCES public.irrigation_sensor(id)
 );
 
 

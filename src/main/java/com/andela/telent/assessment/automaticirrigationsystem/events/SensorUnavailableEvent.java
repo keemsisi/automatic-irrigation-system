@@ -25,7 +25,7 @@ public class SensorUnavailableEvent {
     @EventListener(classes = {PlotIrrigationSensorSlot.class})
     @Retryable(value = Exception.class, backoff = @Backoff(delayExpression = "1000"), maxAttempts = 6)
     void handlePlotIrrigationSensorSlotEvent(PlotIrrigationSensorSlot event) {
-        IrrigationSensor irrigationSensor = event.getPlot().getIrrigationSensor();
+        IrrigationSensor irrigationSensor = irrigationSensorRepository.findByPlotId(event.getPlotId());
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(irrigationSensor.getSensorApiUrl(), event, String.class);
         log.info("----||||Response from Sensor {}||||----", responseEntity);

@@ -30,12 +30,12 @@ public class IrrigationSensorSlotImpl implements IrrigationSensorSlotService {
         Optional<Plot> optionalPlot = plotRepository.findById(request.getPlotId());
         if (optionalPlot.isPresent()) {
             Plot foundPlot = optionalPlot.get();
-            if (ObjectUtils.isEmpty(foundPlot.getIrrigationSensor()))
+            if (ObjectUtils.isEmpty(foundPlot.getIrrigationSensorId()))
                 return ResponseUtil.generateResponse(null, "Oops! Plot does not have configured sensor.", HttpStatus.BAD_REQUEST);
             PlotIrrigationSensorSlot plotIrrigationSensorSlot = modelMapper.map(request, PlotIrrigationSensorSlot.class);
             if (request.getAmountOfWater() <= 0)
                 plotIrrigationSensorSlot.setAmountOfWater(foundPlot.getAgriculturalCropTypeEnum().getAmountOfWater());
-            plotIrrigationSensorSlot.setPlot(optionalPlot.get());
+            plotIrrigationSensorSlot.setPlotId(foundPlot.getId());
             irrigationSensorSlotRepository.save(plotIrrigationSensorSlot);
             appEventPub.publishEvent(plotIrrigationSensorSlot);
         }

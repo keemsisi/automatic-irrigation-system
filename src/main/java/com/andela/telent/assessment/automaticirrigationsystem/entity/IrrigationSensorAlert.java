@@ -1,6 +1,5 @@
 package com.andela.telent.assessment.automaticirrigationsystem.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,13 +16,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "Irrigation_sensor_alert")
 public class IrrigationSensorAlert {
-    private final Long serialVersionId = 1L;
     @GeneratedValue
     @Id
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private IrrigationSensor irrigationSensor;
+    @Column()
+    private Long irrigationSensorId;
 
     @Column(columnDefinition = "varchar(2500)")
     private String description;
@@ -38,7 +36,7 @@ public class IrrigationSensorAlert {
     private long index;
 
     @PrePersist
-    void onCreate(){
+    void onCreate() {
         if (ObjectUtils.isEmpty(dateCreated))
             dateCreated = LocalDateTime.now();
     }

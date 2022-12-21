@@ -40,8 +40,8 @@ public class PlotIrrigationSensorSlot {
     @Column(nullable = false, columnDefinition = "varchar(255) default 'PENDING'")
     private SlotStatusEnum slotStatusEnum;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Plot plot;
+    @Column
+    private Long plotId;
 
     @Transient
     @JsonIgnore

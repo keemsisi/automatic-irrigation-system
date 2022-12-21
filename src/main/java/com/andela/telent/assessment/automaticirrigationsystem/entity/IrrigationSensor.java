@@ -1,7 +1,6 @@
 package com.andela.telent.assessment.automaticirrigationsystem.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +10,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Builder
 @Entity
@@ -20,7 +18,6 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "irrigation_sensor")
 public class IrrigationSensor implements Serializable {
-    private final Long serialVersionId = 1L;
     @GeneratedValue
     @Id
     private Long id;
@@ -28,11 +25,8 @@ public class IrrigationSensor implements Serializable {
     @Column(nullable = false, columnDefinition = "varchar(2500)")
     private String sensorApiUrl;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "irrigationSensor")
-    private Plot plot;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "irrigationSensor")
-    private List<IrrigationSensorAlert> irrigationSensorAlert;
+    @Column(nullable = false, unique = true)
+    private Long plotId;
 
     @Column(nullable = false, columnDefinition = "timestamp default current_timestamp")
     private LocalDateTime dateCreated;
@@ -44,7 +38,7 @@ public class IrrigationSensor implements Serializable {
     private long index;
 
     @PrePersist
-    void onCreate(){
+    void onCreate() {
         if (ObjectUtils.isEmpty(dateCreated))
             dateCreated = LocalDateTime.now();
     }

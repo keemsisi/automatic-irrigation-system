@@ -48,6 +48,7 @@ public class PlotServiceImpl implements PlotService {
             Plot plot = optionalPlot.get();
             modelMapper.map(request, plot);
             plot.setDateModified(LocalDateTime.now());
+            plot.setAgriculturalCropTypeEnum(request.getCropType());
             plotRepository.save(plot);
             return ResponseUtil.generateResponse(responseUtilModelMapper.mapPlotToPlotResponse(plot), "Record fetched successfully", HttpStatus.OK);
         } else {
