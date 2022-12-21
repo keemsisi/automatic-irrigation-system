@@ -44,13 +44,13 @@ public class PlotIrrigationSensorController {
         return new ResponseEntity<>(response, response.getHttpStatus());
     }
 
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, value = "/fetch")
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/fetch")
     public ResponseEntity<GenericResponse<IrrigationSensor>> fetchPlotSensors(@Valid @RequestBody QueryRequestDTO request) {
         GenericResponse<IrrigationSensor> response = irrigationSensorService.fetchPlotSensors(request);
         return new ResponseEntity<>(response, response.getHttpStatus());
     }
 
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, value = "/fetch/alerts")
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/fetch/alerts")
     public ResponseEntity<GenericResponse<List<IrrigationSensorAlert>>> fetchAllSensorAlerts(@Valid @RequestBody QueryRequestDTO request) {
         GenericResponse<List<IrrigationSensorAlert>> response = irrigationSensorAlertService.fetchAllSensorAlerts(request);
         return new ResponseEntity<>(response, response.getHttpStatus());
