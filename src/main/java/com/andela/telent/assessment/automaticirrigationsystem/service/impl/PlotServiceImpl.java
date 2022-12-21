@@ -27,7 +27,7 @@ public class PlotServiceImpl implements PlotService {
     public GenericResponse<Plot> addPlot(PlotRequestDTO request) {
         Plot plot = modelMapper.map(request, Plot.class);
         plotRepository.save(plot);
-        return ResponseUtil.generateResponse(null, "No matching record found", HttpStatus.CREATED);
+        return ResponseUtil.generateResponse(plot, "Plot successfully created", HttpStatus.CREATED);
     }
 
     @Override

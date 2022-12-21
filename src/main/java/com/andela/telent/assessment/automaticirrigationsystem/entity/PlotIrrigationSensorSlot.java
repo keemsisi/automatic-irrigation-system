@@ -1,10 +1,12 @@
 package com.andela.telent.assessment.automaticirrigationsystem.entity;
 
 import com.andela.telent.assessment.automaticirrigationsystem.config.SlotStatusEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,7 +18,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "plotIrrigation_sensor_slot")
 public class PlotIrrigationSensorSlot {
-    @GeneratedValue @Id private Long id;
+    @GeneratedValue
+    @Id
+    private Long id;
     @Column(name = "amount_of_water", columnDefinition = "float default 1000")
     private float amountOfWater;
 
@@ -39,6 +43,15 @@ public class PlotIrrigationSensorSlot {
     @ManyToOne(fetch = FetchType.LAZY)
     private Plot plot;
 
-    @Column(updatable = false)
+    @Transient
+    @JsonIgnore
     private long index;
+
+    @PrePersist
+    void onCreate() {
+        if (ObjectUtils.isEmpty(dateCreated))
+            dateCreated = LocalDateTime.now();
+        if (ObjectUtils.isEmpty(slotStatusEnum))
+            slotStatusEnum = SlotStatusEnum.PENDING;
+    }
 }

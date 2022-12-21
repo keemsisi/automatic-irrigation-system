@@ -1,9 +1,11 @@
 package com.andela.telent.assessment.automaticirrigationsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -32,6 +34,13 @@ public class IrrigationSensorAlert {
     @Column(columnDefinition = "timestamp")
     private LocalDateTime dateModified;
 
-    @Column(updatable = false)
+    @Transient
+    @JsonIgnore
     private long index;
+
+    @PrePersist
+    void onCreate(){
+        if (ObjectUtils.isEmpty(dateCreated))
+            dateCreated = LocalDateTime.now();
+    }
 }

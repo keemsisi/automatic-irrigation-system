@@ -31,7 +31,7 @@ public class PlotServiceAOP {
 
     @After(value = "createPlotPointCut()")
     public void createPlotPointCut(JoinPoint joinPoint) {
-        log.info("-----|||SUCCESSFULLY CREATED PLOT OF LAND {0}|||-----", joinPoint.getArgs());
+        log.info("-----|||REQUEST TO CREATED PLOT COMPLETED {0}|||-----", joinPoint.getArgs());
     }
 
     @Before(value = "plotConfigurationPointCut()")
