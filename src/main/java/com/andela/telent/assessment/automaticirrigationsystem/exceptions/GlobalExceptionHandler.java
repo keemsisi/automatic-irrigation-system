@@ -18,7 +18,7 @@ public class GlobalExceptionHandler extends DefaultResponseErrorHandler {
     @ResponseBody
     @ExceptionHandler(Exception.class)
     private ResponseEntity<ExceptionResponse> exception(final Exception exception) {
-        String ERROR_CODE = RandomStringUtils.randomAlphabetic(20);
+        String ERROR_CODE = RandomStringUtils.randomAlphanumeric(20);
         final ExceptionResponse errorResponse = ExceptionResponse.builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .error("Internal Server Error")
