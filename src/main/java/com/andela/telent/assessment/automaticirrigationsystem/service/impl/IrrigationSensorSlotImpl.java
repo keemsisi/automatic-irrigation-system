@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -26,6 +27,7 @@ public class IrrigationSensorSlotImpl implements IrrigationSensorSlotService {
     private final PlotRepository plotRepository;
 
     @Override
+    @Transactional
     public GenericResponse<PlotIrrigationSensorSlot> createSensorSlot(IrrigationSensorSlotRequest request) {
         Optional<Plot> optionalPlot = plotRepository.findById(request.getPlotId());
         if (optionalPlot.isPresent()) {
@@ -37,6 +39,8 @@ public class IrrigationSensorSlotImpl implements IrrigationSensorSlotService {
                 plotIrrigationSensorSlot.setAmountOfWater(foundPlot.getAgriculturalCropTypeEnum().getAmountOfWater());
             plotIrrigationSensorSlot.setPlotId(foundPlot.getId());
             irrigationSensorSlotRepository.save(plotIrrigationSensorSlot);
+            foundPlot.setIrrigationSensorId(plotIrrigationSensorSlot.getId());
+            plotRepository.save(foundPlot);
             appEventPub.publishEvent(plotIrrigationSensorSlot);
         }
         return ResponseUtil.generateResponse(null, "Oops! Plot does not exists!", HttpStatus.BAD_REQUEST);

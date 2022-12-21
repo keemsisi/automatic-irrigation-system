@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -26,6 +27,7 @@ public class IrrigationSensorImpl implements IrrigationSensorService {
     private final PlotRepository plotRepository;
 
     @Override
+    @Transactional
     public GenericResponse<IrrigationSensor> configureSensor(PlotIrrigationConfigRequestDTO request) {
         Optional<Plot> optionalPlot = plotRepository.findById(request.getPlotId());
         if (optionalPlot.isPresent()) {
@@ -37,6 +39,8 @@ public class IrrigationSensorImpl implements IrrigationSensorService {
                 irrigationSensor.setSensorApiUrl(request.getSensorBaseApi());
                 irrigationSensor.setPlotId(plot.getId());
                 irrigationSensorRepository.save(irrigationSensor);
+                plot.setIrrigationSensorId(irrigationSensor.getId());
+                plotRepository.save(plot);
                 return ResponseUtil.generateResponse(irrigationSensor, "Sensor configured successfully", HttpStatus.CREATED);
             }
         }
