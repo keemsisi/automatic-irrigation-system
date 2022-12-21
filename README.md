@@ -3,6 +3,7 @@ An Automatic Irrigation System Code Chanllenge
 
 ## Step to run Application
 ```Required Java version: 11```
+
 (From Terminal or command line)
 1. clone Repository: ```git clone https://github.com/keemsisi/automatic-irrigation-system.git```
 2. Install dependencies: ```mvnw clean install```
