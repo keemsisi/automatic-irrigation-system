@@ -2,7 +2,6 @@ package com.andela.telent.assessment.automaticirrigationsystem.controller;
 
 
 import com.andela.telent.assessment.automaticirrigationsystem.dto.request.IrrigationSensorSlotRequest;
-import com.andela.telent.assessment.automaticirrigationsystem.dto.request.QueryRequestDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
