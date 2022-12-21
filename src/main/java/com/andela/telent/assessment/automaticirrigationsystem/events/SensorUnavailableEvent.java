@@ -11,7 +11,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.http.ResponseEntity;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,7 +24,6 @@ public class SensorUnavailableEvent {
     private final IrrigationSensorRepository irrigationSensorRepository;
     private final IrrigationSensorAlertRepository irrigationSensorAlertRepository;
 
-    @Async
     @EventListener(classes = {PlotIrrigationSensorSlot.class})
     @Retryable(value = ConnectException.class, backoff = @Backoff(delayExpression = "1000"), maxAttempts = 6)
     void handlePlotIrrigationSensorSlotEvent(PlotIrrigationSensorSlot event) {

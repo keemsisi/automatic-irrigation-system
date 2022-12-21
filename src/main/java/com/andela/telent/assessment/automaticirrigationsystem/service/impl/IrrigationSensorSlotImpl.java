@@ -4,6 +4,7 @@ import com.andela.telent.assessment.automaticirrigationsystem.common.utils.Respo
 import com.andela.telent.assessment.automaticirrigationsystem.dto.request.IrrigationSensorSlotRequest;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.request.QueryRequestDTO;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.response.GenericResponse;
+import com.andela.telent.assessment.automaticirrigationsystem.entity.IrrigationSensorAlert;
 import com.andela.telent.assessment.automaticirrigationsystem.entity.Plot;
 import com.andela.telent.assessment.automaticirrigationsystem.entity.PlotIrrigationSensorSlot;
 import com.andela.telent.assessment.automaticirrigationsystem.repository.IrrigationSensorAlertRepository;
@@ -18,6 +19,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -49,6 +51,11 @@ public class IrrigationSensorSlotImpl implements IrrigationSensorSlotService {
                     appEventPub.publishEvent(plotIrrigationSensorSlot);
                 } catch (Exception e) {
                     log.error("----||||ERROR SENDING SLOT TO SENSOR||||----", e);
+                    IrrigationSensorAlert alert = IrrigationSensorAlert.builder()
+                            .irrigationSensorId(foundPlot.getIrrigationSensorId())
+                            .description(String.format("Failed to send slot with id %s to sensor at %s", plotIrrigationSensorSlot.getId(), LocalDateTime.now()))
+                            .build();
+                    irrigationSensorAlertRepository.save(alert);
                 }
             });
             return ResponseUtil.generateResponse(plotIrrigationSensorSlot, "Successfully created irrigation slot", HttpStatus.CREATED);
