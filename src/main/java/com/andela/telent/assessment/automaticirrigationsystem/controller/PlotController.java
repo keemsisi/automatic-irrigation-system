@@ -5,8 +5,6 @@ import com.andela.telent.assessment.automaticirrigationsystem.dto.request.QueryR
 import com.andela.telent.assessment.automaticirrigationsystem.dto.response.GenericResponse;
 import com.andela.telent.assessment.automaticirrigationsystem.entity.Plot;
 import com.andela.telent.assessment.automaticirrigationsystem.service.PlotService;
-import com.andela.telent.assessment.automaticirrigationsystem.service.impl.IrrigationSensorImpl;
-import com.andela.telent.assessment.automaticirrigationsystem.service.impl.IrrigationSensorSlotImpl;
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
