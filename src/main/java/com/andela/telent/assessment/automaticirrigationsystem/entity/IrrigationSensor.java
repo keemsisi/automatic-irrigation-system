@@ -41,7 +41,6 @@ public class IrrigationSensor implements Serializable {
     private LocalDateTime dateModified;
 
     @Transient
-    @JsonIgnore
     private long index;
 
     @PrePersist

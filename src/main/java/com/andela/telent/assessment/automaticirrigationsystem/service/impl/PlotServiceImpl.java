@@ -37,8 +37,8 @@ public class PlotServiceImpl implements PlotService {
 
     @Override
     public GenericResponse<List<Plot>> fetchAll(QueryRequestDTO request) {
-        List<Plot> results = plotRepository.findAllPlots(request.getIndex(), request.getLimit(), request.getOrder().name());
-        return ResponseUtil.generateResponse(results, "Fetch completed", HttpStatus.CREATED);
+        List<Plot> results = plotRepository.findAllPlots(request.getIndex(), request.getLimit());
+        return ResponseUtil.generateResponse(results, "Fetch completed", HttpStatus.OK);
     }
 
     @Override

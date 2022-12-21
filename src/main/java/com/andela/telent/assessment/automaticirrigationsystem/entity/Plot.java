@@ -42,7 +42,6 @@ public class Plot {
     private AgriculturalCropTypeEnum agriculturalCropTypeEnum;
 
     @Transient
-    @JsonIgnore
     private long index;
 
     @PrePersist

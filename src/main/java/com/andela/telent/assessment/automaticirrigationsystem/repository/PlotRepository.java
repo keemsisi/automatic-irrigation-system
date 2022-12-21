@@ -11,8 +11,8 @@ import java.util.Optional;
 
 @Repository
 public interface PlotRepository extends CrudRepository<Plot, Long> {
-    @Query(value = "SELECT p FROM plot p WHERE p.index < :index ORDER BY p.index :order LIMIT :limit", nativeQuery = true)
-    List<Plot> findAllPlots(long index, long limit, String order);
+    @Query(value = "SELECT p.* FROM plot p WHERE p.index < ?1 ORDER BY p.index DESC LIMIT ?2", nativeQuery = true)
+    List<Plot> findAllPlots(long index, long limit);
 
     @Query(value = "SELECT p FROM Plot p WHERE p.id=:id")
     Optional<Plot> findById(long id);

@@ -35,7 +35,6 @@ public class IrrigationSensorAlert {
     private LocalDateTime dateModified;
 
     @Transient
-    @JsonIgnore
     private long index;
 
     @PrePersist
