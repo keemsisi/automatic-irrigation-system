@@ -1,5 +1,6 @@
 package com.andela.telent.assessment.automaticirrigationsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,9 +17,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "irrigation_sensor_alert")
 public class IrrigationSensorAlert {
-    @GeneratedValue
-    @Id
-    private Long id;
+    @GeneratedValue @Id
+    private long id;
 
     @Column()
     private Long irrigationSensorId;
@@ -33,6 +33,7 @@ public class IrrigationSensorAlert {
     private LocalDateTime dateModified;
 
     @Transient
+    @JsonIgnore
     private long index;
 
     @PrePersist

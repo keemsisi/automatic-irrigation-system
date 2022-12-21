@@ -1,6 +1,7 @@
 package com.andela.telent.assessment.automaticirrigationsystem.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,9 +19,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "irrigation_sensor")
 public class IrrigationSensor implements Serializable {
-    @GeneratedValue
-    @Id
-    private Long id;
+    @GeneratedValue @Id
+    private long id;
 
     @Column(nullable = false, columnDefinition = "varchar(2500)")
     private String sensorApiUrl;
@@ -35,6 +35,7 @@ public class IrrigationSensor implements Serializable {
     private LocalDateTime dateModified;
 
     @Transient
+    @JsonIgnore
     private long index;
 
     @PrePersist

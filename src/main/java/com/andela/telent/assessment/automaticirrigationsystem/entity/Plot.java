@@ -1,6 +1,7 @@
 package com.andela.telent.assessment.automaticirrigationsystem.entity;
 
 import com.andela.telent.assessment.automaticirrigationsystem.common.enums.AgriculturalCropTypeEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,9 +16,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "plot")
 public class Plot {
-    @GeneratedValue
-    @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO) @Id
+    private long id;
 
     @Column(nullable = false)
     private String name;
@@ -36,6 +36,7 @@ public class Plot {
     private AgriculturalCropTypeEnum agriculturalCropTypeEnum;
 
     @Transient
+    @JsonIgnore
     private long index;
 
     @PrePersist

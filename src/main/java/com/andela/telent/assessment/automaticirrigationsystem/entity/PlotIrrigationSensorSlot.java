@@ -18,9 +18,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "plot_irrigation_sensor_slot")
 public class PlotIrrigationSensorSlot {
-    @GeneratedValue
-    @Id
-    private Long id;
+    @GeneratedValue @Id
+    private long id;
     @Column(name = "amount_of_water", columnDefinition = "float default 1000")
     private float amountOfWater;
 
