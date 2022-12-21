@@ -2,6 +2,7 @@ package com.andela.telent.assessment.automaticirrigationsystem.events;
 
 import com.andela.telent.assessment.automaticirrigationsystem.entity.IrrigationSensor;
 import com.andela.telent.assessment.automaticirrigationsystem.entity.PlotIrrigationSensorSlot;
+import com.andela.telent.assessment.automaticirrigationsystem.repository.IrrigationSensorAlertRepository;
 import com.andela.telent.assessment.automaticirrigationsystem.repository.IrrigationSensorRepository;
 import com.andela.telent.assessment.automaticirrigationsystem.repository.IrrigationSensorSlotRepository;
 import lombok.AllArgsConstructor;
@@ -14,16 +15,19 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.ConnectException;
+
 @Component
 @Slf4j
 @AllArgsConstructor
 public class SensorUnavailableEvent {
     private final IrrigationSensorSlotRepository irrigationSensorSlotRepository;
     private final IrrigationSensorRepository irrigationSensorRepository;
+    private final IrrigationSensorAlertRepository irrigationSensorAlertRepository;
 
     @Async
     @EventListener(classes = {PlotIrrigationSensorSlot.class})
-    @Retryable(value = Exception.class, backoff = @Backoff(delayExpression = "1000"), maxAttempts = 6)
+    @Retryable(value = ConnectException.class, backoff = @Backoff(delayExpression = "1000"), maxAttempts = 6)
     void handlePlotIrrigationSensorSlotEvent(PlotIrrigationSensorSlot event) {
         IrrigationSensor irrigationSensor = irrigationSensorRepository.findByPlotId(event.getPlotId());
         RestTemplate restTemplate = new RestTemplate();

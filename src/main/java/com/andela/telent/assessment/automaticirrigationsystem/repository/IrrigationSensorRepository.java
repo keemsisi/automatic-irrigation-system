@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IrrigationSensorRepository extends CrudRepository<IrrigationSensor, Long> {
-    @Query(value = "SELECT irs FROM irrigation_sensor irs INNER JOIN plot p on p.id=:plotId", nativeQuery = true)
+    @Query(value = "SELECT irs.* FROM irrigation_sensor irs INNER JOIN plot p on p.id=:plotId", nativeQuery = true)
     IrrigationSensor findByPlotId(Long plotId);
 }

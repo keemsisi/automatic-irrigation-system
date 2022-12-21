@@ -28,7 +28,6 @@ import java.util.List;
 @AllArgsConstructor
 @Validated
 public class PlotIrrigationSensorController {
-    private final IrrigationSensorSlotService sensorSlotService;
     private final IrrigationSensorService irrigationSensorService;
     private final IrrigationSensorAlertService irrigationSensorAlertService;
 
@@ -38,20 +37,14 @@ public class PlotIrrigationSensorController {
         return new ResponseEntity<>(response, response.getHttpStatus());
     }
 
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, value = "/slot")
-    public ResponseEntity<GenericResponse<PlotIrrigationSensorSlot>> createSlot(@Valid @RequestBody IrrigationSensorSlotRequest request) {
-        GenericResponse<PlotIrrigationSensorSlot> response = sensorSlotService.createSensorSlot(request);
-        return new ResponseEntity<>(response, response.getHttpStatus());
-    }
-
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/fetch")
-    public ResponseEntity<GenericResponse<IrrigationSensor>> fetchPlotSensors(@Valid @RequestBody QueryRequestDTO request) {
+    public ResponseEntity<GenericResponse<IrrigationSensor>> fetchPlotSensors(@Valid QueryRequestDTO request) {
         GenericResponse<IrrigationSensor> response = irrigationSensorService.fetchPlotSensors(request);
         return new ResponseEntity<>(response, response.getHttpStatus());
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/fetch/alerts")
-    public ResponseEntity<GenericResponse<List<IrrigationSensorAlert>>> fetchAllSensorAlerts(@Valid @RequestBody QueryRequestDTO request) {
+    public ResponseEntity<GenericResponse<List<IrrigationSensorAlert>>> fetchAllSensorAlerts(@Valid QueryRequestDTO request) {
         GenericResponse<List<IrrigationSensorAlert>> response = irrigationSensorAlertService.fetchAllSensorAlerts(request);
         return new ResponseEntity<>(response, response.getHttpStatus());
     }
