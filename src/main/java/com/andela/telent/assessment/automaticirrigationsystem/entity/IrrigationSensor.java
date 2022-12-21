@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "irrigation_sensor")
 public class IrrigationSensor implements Serializable {
-    @GeneratedValue @Id
+    @GeneratedValue(strategy = GenerationType.AUTO) @Id
     private long id;
 
     @Column(nullable = false, columnDefinition = "varchar(2500)")

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "irrigation_sensor_alert")
 public class IrrigationSensorAlert {
-    @GeneratedValue @Id
+    @GeneratedValue(strategy = GenerationType.AUTO) @Id
     private long id;
 
     @Column()
