@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "plotIrrigation_sensor_slot")
+@Table(name = "plot_irrigation_sensor_slot")
 public class PlotIrrigationSensorSlot {
     @GeneratedValue
     @Id

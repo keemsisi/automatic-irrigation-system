@@ -3,6 +3,7 @@ package com.andela.telent.assessment.automaticirrigationsystem.controller;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.request.PlotRequestDTO;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.request.QueryRequestDTO;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.response.GenericResponse;
+import com.andela.telent.assessment.automaticirrigationsystem.dto.response.PlotResponse;
 import com.andela.telent.assessment.automaticirrigationsystem.entity.Plot;
 import com.andela.telent.assessment.automaticirrigationsystem.service.PlotService;
 import io.swagger.annotations.Api;
@@ -37,14 +38,14 @@ public class PlotController {
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, value = "/fetch/{plotId}")
-    public ResponseEntity<GenericResponse<Plot>> fetchByPlotId(@PathVariable Long plotId) {
-        GenericResponse<Plot> response = plotService.fetchById(plotId);
+    public ResponseEntity<GenericResponse<PlotResponse>> fetchByPlotId(@PathVariable Long plotId) {
+        GenericResponse<PlotResponse> response = plotService.fetchById(plotId);
         return new ResponseEntity<>(response, response.getHttpStatus());
     }
 
     @RequestMapping(method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE, value = "/{plotId}")
-    public ResponseEntity<GenericResponse<Plot>> editPlot(@Valid @RequestBody PlotRequestDTO request, @PathVariable Long plotId) {
-        GenericResponse<Plot> response = plotService.editPlot(request, plotId);
+    public ResponseEntity<GenericResponse<PlotResponse>> editPlot(@Valid @RequestBody PlotRequestDTO request, @PathVariable Long plotId) {
+        GenericResponse<PlotResponse> response = plotService.editPlot(request, plotId);
         return new ResponseEntity<>(response, response.getHttpStatus());
     }
 }

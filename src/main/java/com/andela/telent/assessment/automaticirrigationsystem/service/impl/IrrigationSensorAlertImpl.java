@@ -1,6 +1,6 @@
 package com.andela.telent.assessment.automaticirrigationsystem.service.impl;
 
-import com.andela.telent.assessment.automaticirrigationsystem.common.enums.ResponseUtil;
+import com.andela.telent.assessment.automaticirrigationsystem.common.utils.ResponseUtil;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.request.QueryRequestDTO;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.response.GenericResponse;
 import com.andela.telent.assessment.automaticirrigationsystem.entity.IrrigationSensorAlert;

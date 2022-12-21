@@ -1,4 +1,4 @@
-package com.andela.telent.assessment.automaticirrigationsystem.common.enums;
+package com.andela.telent.assessment.automaticirrigationsystem.common.utils;
 
 import com.andela.telent.assessment.automaticirrigationsystem.dto.response.GenericResponse;
 import org.springframework.http.HttpStatus;

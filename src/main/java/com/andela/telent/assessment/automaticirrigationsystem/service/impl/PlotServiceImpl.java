@@ -1,9 +1,11 @@
 package com.andela.telent.assessment.automaticirrigationsystem.service.impl;
 
-import com.andela.telent.assessment.automaticirrigationsystem.common.enums.ResponseUtil;
+import com.andela.telent.assessment.automaticirrigationsystem.common.utils.ResponseUtil;
+import com.andela.telent.assessment.automaticirrigationsystem.common.utils.ResponseUtilModelMapper;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.request.PlotRequestDTO;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.request.QueryRequestDTO;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.response.GenericResponse;
+import com.andela.telent.assessment.automaticirrigationsystem.dto.response.PlotResponse;
 import com.andela.telent.assessment.automaticirrigationsystem.entity.Plot;
 import com.andela.telent.assessment.automaticirrigationsystem.repository.PlotRepository;
 import com.andela.telent.assessment.automaticirrigationsystem.service.PlotService;
@@ -13,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,10 +25,12 @@ import java.util.Optional;
 public class PlotServiceImpl implements PlotService {
     private final PlotRepository plotRepository;
     private final ModelMapper modelMapper;
+    private final ResponseUtilModelMapper responseUtilModelMapper;
 
     @Override
     public GenericResponse<Plot> addPlot(PlotRequestDTO request) {
         Plot plot = modelMapper.map(request, Plot.class);
+        plot.setAgriculturalCropTypeEnum(request.getCropType());
         plotRepository.save(plot);
         return ResponseUtil.generateResponse(plot, "Plot successfully created", HttpStatus.CREATED);
     }
@@ -37,21 +42,23 @@ public class PlotServiceImpl implements PlotService {
     }
 
     @Override
-    public GenericResponse<Plot> editPlot(PlotRequestDTO request, Long plotId) {
+    public GenericResponse<PlotResponse> editPlot(PlotRequestDTO request, Long plotId) {
         Optional<Plot> optionalPlot = getPlotById(plotId);
         if (optionalPlot.isPresent()) {
             Plot plot = optionalPlot.get();
             modelMapper.map(request, plot);
+            plot.setDateModified(LocalDateTime.now());
             plotRepository.save(plot);
-            return ResponseUtil.generateResponse(plot, "Plot Updated successfully", HttpStatus.OK);
+            return ResponseUtil.generateResponse(responseUtilModelMapper.mapPlotToPlotResponse(plot), "Record fetched successfully", HttpStatus.OK);
         } else {
             return ResponseUtil.generateResponse(null, "Fetch completed", HttpStatus.BAD_REQUEST);
         }
     }
 
     @Override
-    public GenericResponse<Plot> fetchById(Long plotId) {
-        return getPlotById(plotId).map(plot -> ResponseUtil.generateResponse(plot, "Plot fetched successfully", HttpStatus.OK))
+    public GenericResponse<PlotResponse> fetchById(Long plotId) {
+        return getPlotById(plotId)
+                .map(plot -> ResponseUtil.generateResponse(responseUtilModelMapper.mapPlotToPlotResponse(plot), "Record fetched successfully", HttpStatus.OK))
                 .orElseGet(() -> ResponseUtil.generateResponse(null, "No matching record found", HttpStatus.NOT_FOUND));
     }
 
