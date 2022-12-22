@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Component
@@ -40,6 +41,7 @@ public class IrrigationSensorImpl implements IrrigationSensorService {
                 irrigationSensor.setPlotId(plot.getId());
                 irrigationSensorRepository.save(irrigationSensor);
                 plot.setIrrigationSensorId(irrigationSensor.getId());
+                plot.setDateModified(LocalDateTime.now());
                 plotRepository.save(plot);
                 return ResponseUtil.generateResponse(irrigationSensor, "Sensor configured successfully", HttpStatus.CREATED);
             }
