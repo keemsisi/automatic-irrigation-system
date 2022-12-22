@@ -57,6 +57,7 @@ public class IrrigationSensorSlotImpl implements IrrigationSensorSlotService {
                             .description(String.format("Failed to send slot with id %s to sensor at %s", plotIrrigationSensorSlot.getId(), LocalDateTime.now()))
                             .build();
                     plotIrrigationSensorSlot.setSlotStatusEnum(SlotStatusEnum.FAILED);
+                    plotIrrigationSensorSlot.setDateModified(LocalDateTime.now());
                     irrigationSensorSlotRepository.save(plotIrrigationSensorSlot);
                     irrigationSensorAlertRepository.save(alert);
                 }

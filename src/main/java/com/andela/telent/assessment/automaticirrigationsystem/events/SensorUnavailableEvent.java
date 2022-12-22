@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.ConnectException;
+import java.time.LocalDateTime;
 
 @Component
 @Slf4j
@@ -33,6 +34,7 @@ public class SensorUnavailableEvent {
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(irrigationSensor.getSensorApiUrl(), event, String.class);
         log.info("----||||Response from Sensor {}||||----", responseEntity);
         event.setSlotStatusEnum(SlotStatusEnum.SUCCESSFUL);
+        event.setDateModified(LocalDateTime.now());
         irrigationSensorSlotRepository.save(event);
     }
 }
