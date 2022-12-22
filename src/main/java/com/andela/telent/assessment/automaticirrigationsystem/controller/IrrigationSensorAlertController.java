@@ -3,7 +3,6 @@ package com.andela.telent.assessment.automaticirrigationsystem.controller;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.request.QueryRequestDTO;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.response.GenericResponse;
 import com.andela.telent.assessment.automaticirrigationsystem.entity.IrrigationSensorAlert;
-import com.andela.telent.assessment.automaticirrigationsystem.entity.PlotIrrigationSensorSlot;
 import com.andela.telent.assessment.automaticirrigationsystem.service.IrrigationSensorAlertService;
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;

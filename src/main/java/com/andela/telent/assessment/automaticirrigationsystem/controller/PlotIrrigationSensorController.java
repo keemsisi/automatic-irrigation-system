@@ -1,16 +1,13 @@
 package com.andela.telent.assessment.automaticirrigationsystem.controller;
 
 
-import com.andela.telent.assessment.automaticirrigationsystem.dto.request.IrrigationSensorSlotRequest;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.request.PlotIrrigationConfigRequestDTO;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.request.QueryRequestDTO;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.response.GenericResponse;
 import com.andela.telent.assessment.automaticirrigationsystem.entity.IrrigationSensor;
 import com.andela.telent.assessment.automaticirrigationsystem.entity.IrrigationSensorAlert;
-import com.andela.telent.assessment.automaticirrigationsystem.entity.PlotIrrigationSensorSlot;
 import com.andela.telent.assessment.automaticirrigationsystem.service.IrrigationSensorAlertService;
 import com.andela.telent.assessment.automaticirrigationsystem.service.IrrigationSensorService;
-import com.andela.telent.assessment.automaticirrigationsystem.service.IrrigationSensorSlotService;
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;

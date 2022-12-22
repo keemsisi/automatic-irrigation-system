@@ -1,5 +1,6 @@
 package com.andela.telent.assessment.automaticirrigationsystem.events;
 
+import com.andela.telent.assessment.automaticirrigationsystem.config.SlotStatusEnum;
 import com.andela.telent.assessment.automaticirrigationsystem.entity.IrrigationSensor;
 import com.andela.telent.assessment.automaticirrigationsystem.entity.PlotIrrigationSensorSlot;
 import com.andela.telent.assessment.automaticirrigationsystem.repository.IrrigationSensorAlertRepository;
@@ -31,5 +32,7 @@ public class SensorUnavailableEvent {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(irrigationSensor.getSensorApiUrl(), event, String.class);
         log.info("----||||Response from Sensor {}||||----", responseEntity);
+        event.setSlotStatusEnum(SlotStatusEnum.SUCCESSFUL);
+        irrigationSensorSlotRepository.save(event);
     }
 }

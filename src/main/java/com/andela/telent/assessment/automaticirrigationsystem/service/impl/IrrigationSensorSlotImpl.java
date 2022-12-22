@@ -1,6 +1,7 @@
 package com.andela.telent.assessment.automaticirrigationsystem.service.impl;
 
 import com.andela.telent.assessment.automaticirrigationsystem.common.utils.ResponseUtil;
+import com.andela.telent.assessment.automaticirrigationsystem.config.SlotStatusEnum;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.request.IrrigationSensorSlotRequest;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.request.QueryRequestDTO;
 import com.andela.telent.assessment.automaticirrigationsystem.dto.response.GenericResponse;
@@ -55,6 +56,8 @@ public class IrrigationSensorSlotImpl implements IrrigationSensorSlotService {
                             .irrigationSensorId(foundPlot.getIrrigationSensorId())
                             .description(String.format("Failed to send slot with id %s to sensor at %s", plotIrrigationSensorSlot.getId(), LocalDateTime.now()))
                             .build();
+                    plotIrrigationSensorSlot.setSlotStatusEnum(SlotStatusEnum.FAILED);
+                    irrigationSensorSlotRepository.save(plotIrrigationSensorSlot);
                     irrigationSensorAlertRepository.save(alert);
                 }
             });
